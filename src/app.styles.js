@@ -31,3 +31,8 @@ export const BackButton = styled.button`
   background: #888;
   color: white;
 `;
+
+export const Search = styled.input`
+  width: 200px;
+  font-size: 16px;
+`;

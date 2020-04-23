@@ -24,6 +24,8 @@ export const PostDetails = () => {
   const [post] = data;
   let {
     title,
+    is_video: isVideo,
+    media,
     thumbnail,
     created,
     author,
@@ -34,6 +36,9 @@ export const PostDetails = () => {
   } = !isLoading && post && post.data.children[0].data;
 
   if (thumbnail === 'self') thumbnail = fallback;
+  if (media && isVideo) {
+    url = media.reddit_video.fallback_url;
+  }
 
   return (
     <>

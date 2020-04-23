@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Headers, Button, BackButton } from '../../app.styles';
+import { Headers, Button, BackButton, Search } from '../../app.styles';
 import { useHistory } from 'react-router-dom';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export const Header = ({ tab, setTab }) => {
+export const Header = ({ tab, setTab, setSearchKey }) => {
   let history = useHistory();
   const [currenTab, setCurrentTab] = useState(tab);
   const handlePosts = (e) => {
@@ -17,6 +17,11 @@ export const Header = ({ tab, setTab }) => {
   const goBack = () => {
     history.goBack();
   };
+
+  const handleSearchInput = (e) => {
+    const searchKey = e.target.value;
+    setSearchKey(searchKey);
+  };
   return (
     <Headers>
       <BackButton onClick={goBack}>
@@ -28,6 +33,7 @@ export const Header = ({ tab, setTab }) => {
       <Button onClick={handlePosts} currenTab={currenTab} value='new'>
         New
       </Button>
+      <Search onChange={handleSearchInput} />
     </Headers>
   );
 };

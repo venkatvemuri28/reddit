@@ -16,3 +16,8 @@ export const getSubReddits = (limit = 10, path) => {
 
   return axios.get(url);
 };
+
+export const getSearchResults = (limit = 10, searchKey) => {
+  const url = `https://www.reddit.com/subreddits/search.json?q=${searchKey}`;
+  return axios.get(url);
+};

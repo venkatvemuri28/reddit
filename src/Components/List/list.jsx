@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { useGetHook } from '../APIS/datahook';
-import { getPopularPosts } from '../APIS/apis';
+import { getPopularPosts, getSearchResults } from '../APIS/apis';
 
 import { formatNumbers } from '../../Utils/helpers';
 import {
@@ -14,8 +14,27 @@ import {
   Meta,
 } from '../Post/post.styles';
 
-export const List = ({ tab }) => {
+export const List = ({ tab, searchKey }) => {
+  if (searchKey) return <Search searchKey={searchKey} />;
+  return <ListHome tab={tab} searchKey={searchKey} />;
+};
+
+export const Search = ({ searchKey }) => {
+  const { isLoading, data } = useGetHook(getSearchResults, searchKey);
+  return (
+    <>
+      {!isLoading &&
+        data &&
+        data.children.map((item, i) => {
+          return <ListItem key={i} item={item.data} />;
+        })}
+    </>
+  );
+};
+
+export const ListHome = ({ tab, searchKey }) => {
   const { isLoading, data } = useGetHook(getPopularPosts, tab);
+
   return (
     <>
       {!isLoading &&
